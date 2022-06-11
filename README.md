@@ -25,4 +25,5 @@ If you plan to use frequently this features I highly recommend to use it in comb
 
 Next to installing Termux:Widget app you only need to `mv` the script inside .shortcut folder in the Termux home folder.
 The result should be like that:
+
 ![immagine](https://user-images.githubusercontent.com/79154297/173182031-ab1b91e9-cd16-4c0a-8af6-57a0ef0bb714.png)
