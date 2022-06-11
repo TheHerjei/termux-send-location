@@ -18,7 +18,10 @@ P='gps'
 echo "Last position" > $M
 termux-location -p $P -r last > location.json
 readarray -t values < <(jq -r '.[]' location.json)
-L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
+
+# Choose between Google Maps or Open Street Map for link generation
+L='https://www.openstreetmap.org/?mlat='${values[0]}'&mlon='${values[1]}
+#L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
 echo $L >> $M
 # Next line is for altitude, comment if undesired
 echo Alt: ${values[2]} >> $M
@@ -30,7 +33,10 @@ echo ' | ' >> $M
 echo "Current position" >> $M
 termux-location -p $P -r once > location.json
 readarray -t values < <(jq -r '.[]' location.json)
-L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
+
+# Choose between Google Maps or Open Street Map for link generation
+L='https://www.openstreetmap.org/?mlat='${values[0]}'&mlon='${values[1]}
+#L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
 echo $L >> $M
 # Next line for altitude, like above
 echo Alt: ${values[2]} >> $M
