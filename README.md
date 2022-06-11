@@ -1,6 +1,8 @@
 # termux-send-location
 
 Simple script to send gps (or network retrieved) position to someone through SMS.
+The scope was to ave a quick way to send position in case of real need to someone reliable.
+For this reason the phone numbers are "hard coded" inside the script.
 
 ## Dependencies
 Android apps needed:
@@ -22,8 +24,14 @@ Those must be granted to "Termux:API" app
 
 From terminal run `chmod +x send-location` to give termux the permission to run the script.
 
+## Before first use
+Is needed to enter the correct telephone numbers to send sms.
+Other than that you can choose to generate the position link in GoogleMaps or OpenStreetMap style.
+Make sure to comment or uncomment all needed lines.
+The scripts itself is provided with comments.
+
 ## Optional
-If you plan to use frequently this features I highly recommend to use it in combination with [Termux:Widget](https://f-droid.org/packages/com.termux.widget/). This app will allow to one-tap-launch of the script, this will make the script usefull in real situations.
+I highly recommend to use it in combination with [Termux:Widget](https://f-droid.org/packages/com.termux.widget/). This app will allow to one-tap-launch of the script, this will make the script usefull in real situations.
 
 Next to installing Termux:Widget app you only need to `mv` the script inside .shortcut folder in the Termux home folder.
 The result should be like that:
