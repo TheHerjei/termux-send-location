@@ -1,0 +1,46 @@
+#!/bin/bash
+# Script dependencies:
+#  termux-api
+#  termux-location
+#  jq
+
+# to install decomment next line
+# pkg update && pkg install termux-api termux-location jq
+
+# Edit next line with a valid path where you have permissions
+# if you want the file to be consultable outside termux the path must be in the Internal or External storage folder
+M="/data/data/com.termux/files/home/location"
+
+# Next line for position provider, can be gps|network|passive accordingly with termux-location man page
+P='gps'
+
+# First retrieve the last known position
+echo "Last position" > $M
+termux-location -p $P -r last > location.json
+readarray -t values < <(jq -r '.[]' location.json)
+L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
+echo $L >> $M
+# Next line is for altitude, comment if undesired
+echo Alt: ${values[2]} >> $M
+
+# Next line is only for readability
+echo ' | ' >> $M
+
+# Now try to retrieve current position
+echo "Current position" >> $M
+termux-location -p $P -r once > location.json
+readarray -t values < <(jq -r '.[]' location.json)
+L='http://maps.google.com/maps?q='${values[0]}','${values[1]}
+echo $L >> $M
+# Next line for altitude, like above
+echo Alt: ${values[2]} >> $M
+
+echo "Provider: $P" >> $M
+
+# Important to set the correct Phone number
+termux-sms-send -n xxxxxxxxxx $(cat $M)
+termux-sms-send -n xxxxxxxxxx $(cat $M)
+#termux-sms-send -n xxx $(cat $M)
+#termux-sms-send -n xxx $(cat $M)
+
+rm location.json
